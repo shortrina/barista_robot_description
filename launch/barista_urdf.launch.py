@@ -1,13 +1,42 @@
 import os
+import random
 from ament_index_python.packages import get_package_share_directory
+from ament_index_python.packages import get_package_prefix
+from launch.substitutions import Command
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription, ExecuteProcess
+from launch.actions import DeclareLaunchArgument
+from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
 
+
 def generate_launch_description():
+    package_description = "barista_robot_description"
+    install_dir = get_package_prefix(package_description)
+    # Set the path to the WORLD model files. Is to find the models inside the models folder in my_box_bot_gazebo package
+    gazebo_models_path = os.path.join(package_description, 'models')
+    # os.environ["GAZEBO_MODEL_PATH"] = gazebo_models_path
+
+    if 'GAZEBO_MODEL_PATH' in os.environ:
+        os.environ['GAZEBO_MODEL_PATH'] = os.environ[
+                                              'GAZEBO_MODEL_PATH'] + ':' + install_dir + '/share' + ':' + gazebo_models_path
+    else:
+        os.environ['GAZEBO_MODEL_PATH'] = install_dir + "/share" + ':' + gazebo_models_path
+
+    if 'GAZEBO_PLUGIN_PATH' in os.environ:
+        os.environ['GAZEBO_PLUGIN_PATH'] = os.environ['GAZEBO_PLUGIN_PATH'] + ':' + install_dir + '/lib'
+    else:
+        os.environ['GAZEBO_PLUGIN_PATH'] = install_dir + '/lib'
+
+    print("GAZEBO MODELS PATH==" + str(os.environ["GAZEBO_MODEL_PATH"]))
+    print("GAZEBO PLUGINS PATH==" + str(os.environ["GAZEBO_PLUGIN_PATH"]))
+
     # Get the launch directory
-    launch_dir = os.path.join(get_package_share_directory('barista_robot_description'), 'launch')
+    #launch_dir = os.path.join(get_package_share_directory('barista_robot_description'), 'launch')
+    gazebo_argument = DeclareLaunchArgument(
+        'world',
+        default_value=[os.path.join(package_description, 'worlds', 'barista_bot_empty.world'), ''],
+        description='SDF world file')
 
     # Gazebo launch
     gazebo = IncludeLaunchDescription(
@@ -30,32 +59,32 @@ def generate_launch_description():
         output='screen'
     )
 
-    # RViz
-    rviz_config_dir = os.path.join(
-        get_package_share_directory('barista_robot_description'),
-        'rviz',
-        'barista_robot.rviz')
+    robot_desc_path = os.path.join(get_package_share_directory(package_description), "urdf", urdf_file_name)
+
+    robot_state_publisher = Node(
+        package='robot_state_publisher',
+        executable='robot_state_publisher',
+        name='robot_state_publisher_node',
+        emulate_tty=True,
+        output='screen',
+        parameters=[{'use_sim_time': True, 'robot_description': Command(['xacro ', robot_desc_path])}],
+    )
+
+    rviz_config_dir = os.path.join(get_package_share_directory(package_description), 'rviz', 'barista_robot.rviz')
 
     rviz = Node(
         package='rviz2',
         executable='rviz2',
-        name='rviz2_node',
-        arguments=['-d', rviz_config_dir],
-        output='screen'
-    )
-
-    # Robot state publisher
-    robot_state_publisher_node = Node(
-        package='robot_state_publisher',
-        executable='robot_state_publisher',
-        name='robot_state_publisher_node',
         output='screen',
-        arguments=[urdf]
+        name='rviz2_node',
+        parameters=[{'use_sim_time': True}],
+        arguments=['-d', rviz_config_dir]
     )
 
-    return LaunchDescription([        
-        robot_state_publisher_node,
-        rviz
-    #    gazebo,
-    #    spawn_entity
+    return LaunchDescription([
+        robot_state_publisher,
+        rviz,
+        gazebo_argument,
+        gazebo,
+        spawn_entity
     ])
