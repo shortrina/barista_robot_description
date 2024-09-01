@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot name="barista_gazebo_robot">
+<robot name="barista_robot">
     <material name="red">
         <color rgba="1.0 0.0 0.0 1"/>
     </material>
@@ -123,6 +123,245 @@
         <material>Gazebo/Red</material>
     </gazebo>
 
+    <!-- Casters -->
+    <!-- Caster Wheel Front -->
+    <link name="front_yaw_link">
+        <visual>
+            <origin rpy="0 1.5707 1.5707" xyz="0 0 -0.0005"/>
+            <geometry>
+                <cylinder length="0.001" radius="0.0045000000000000005"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+
+        <collision>
+            <origin rpy="0 1.5707 1.5707" xyz="0 0 -0.0005"/>
+            <geometry>
+                <cylinder length="0.001" radius="0.0045000000000000005"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <origin rpy="0 1.5707 1.5707" xyz="0 0 -0.0005"/>
+            <mass value="0.001"/>
+            <inertia ixx="5.145833333333334e-09" ixy="0" ixz="0" iyy="5.145833333333334e-09" iyz="0"
+                     izz="1.0125000000000003e-08"/>
+        </inertial>
+
+    </link>
+
+    <joint name="front_yaw_joint" type="continuous">
+        <origin rpy="0 0 0" xyz="0.13 0 0.0005"/>
+        <parent link="main_body_link"/>
+        <child link="front_yaw_link"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="1000.0" velocity="100.0"/>
+        <dynamics damping="0.0" friction="0.1"/>
+    </joint>
+
+    <gazebo reference="front_yaw_link">
+        <material>Gazebo/Black</material>
+    </gazebo>
+
+    <link name="front_roll_link">
+        <visual>
+            <origin rpy="0 1.5707 1.5707" xyz="0 0 -0.0005"/>
+            <geometry>
+                <cylinder length="0.001" radius="0.0045000000000000005"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+
+        <collision>
+            <origin rpy="0 1.5707 1.5707" xyz="0 0 -0.0005"/>
+            <geometry>
+                <cylinder length="0.001" radius="0.0045000000000000005"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <origin rpy="0 1.5707 1.5707" xyz="0 0 -0.0005"/>
+            <mass value="0.001"/>
+            <inertia ixx="5.145833333333334e-09" ixy="0" ixz="0" iyy="5.145833333333334e-09" iyz="0"
+                     izz="1.0125000000000003e-08"/>
+        </inertial>
+    </link>
+
+    <joint name="front_roll_joint" type="continuous">
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <parent link="front_yaw_link"/>
+        <child link="front_roll_link"/>
+        <axis xyz="1 0 0"/>
+        <limit effort="1000.0" velocity="100.0"/>
+        <dynamics damping="0.0" friction="0.1"/>
+    </joint>
+
+    <gazebo reference="front_roll_link">
+        <material>Gazebo/Black</material>
+    </gazebo>
+
+
+    <link name="front_pitch_link">
+        <visual>
+            <origin rpy="0 1.5707 1.5707" xyz="0 0 -0.0005"/>
+            <geometry>
+                <sphere radius="0.0277"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+
+        <collision>
+            <origin rpy="0 1.5707 1.5707" xyz="0 0 -0.0005"/>
+            <geometry>
+                <sphere radius="0.0277"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <origin rpy="0 1.5707 1.5707" xyz="0 0 -0.0005"/>
+            <mass value="0.06"/>
+            <inertia ixx="1.8414959999999996e-05" ixy="0.0" ixz="0.0" iyy="1.8414959999999996e-05" iyz="0.0"
+                     izz="1.8414959999999996e-05"/>
+        </inertial>
+    </link>
+
+    <gazebo reference="front_pitch_link">
+        <kp>1000000000000000000000000000.0</kp>
+        <kd>1000000000000000000000000000.0</kd>
+        <mu1>0.5</mu1>
+        <mu2>0.5</mu2>
+        <material>Gazebo/Black</material>
+    </gazebo>
+
+    <joint name="front_pitch_joint" type="continuous">
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <parent link="front_roll_link"/>
+        <child link="front_pitch_link"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="1000.0" velocity="100.0"/>
+        <dynamics damping="0.0" friction="0.1"/>
+    </joint>
+
+    <!-- Caster Wheel Back -->
+    <link name="back_yaw_link">
+        <visual>
+            <origin rpy="0 1.5707 1.5707" xyz="0 0 -0.0005"/>
+            <geometry>
+                <cylinder length="0.001" radius="0.0045000000000000005"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+
+        <collision>
+            <origin rpy="0 1.5707 1.5707" xyz="0 0 -0.0005"/>
+            <geometry>
+                <cylinder length="0.001" radius="0.0045000000000000005"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <origin rpy="0 1.5707 1.5707" xyz="0 0 -0.0005"/>
+            <mass value="0.001"/>
+            <inertia ixx="5.145833333333334e-09" ixy="0" ixz="0" iyy="5.145833333333334e-09" iyz="0"
+                     izz="1.0125000000000003e-08"/>
+        </inertial>
+
+    </link>
+
+    <joint name="back_yaw_joint" type="continuous">
+        <origin rpy="0 0 0" xyz="-0.13 0 0.0005"/>
+        <parent link="main_body_link"/>
+        <child link="back_yaw_link"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="1000.0" velocity="100.0"/>
+        <dynamics damping="0.0" friction="0.1"/>
+    </joint>
+
+    <gazebo reference="back_yaw_link">
+        <material>Gazebo/Black</material>
+    </gazebo>
+
+    <link name="back_roll_link">
+        <visual>
+            <origin rpy="0 1.5707 1.5707" xyz="0 0 -0.0005"/>
+            <geometry>
+                <cylinder length="0.001" radius="0.0045000000000000005"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+
+        <collision>
+            <origin rpy="0 1.5707 1.5707" xyz="0 0 -0.0005"/>
+            <geometry>
+                <cylinder length="0.001" radius="0.0045000000000000005"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <origin rpy="0 1.5707 1.5707" xyz="0 0 -0.0005"/>
+            <mass value="0.001"/>
+            <inertia ixx="5.145833333333334e-09" ixy="0" ixz="0" iyy="5.145833333333334e-09" iyz="0"
+                     izz="1.0125000000000003e-08"/>
+        </inertial>
+    </link>
+
+    <joint name="back_roll_joint" type="continuous">
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <parent link="back_yaw_link"/>
+        <child link="back_roll_link"/>
+        <axis xyz="1 0 0"/>
+        <limit effort="1000.0" velocity="100.0"/>
+        <dynamics damping="0.0" friction="0.1"/>
+    </joint>
+
+    <gazebo reference="back_roll_link">
+        <material>Gazebo/Black</material>
+    </gazebo>
+
+
+    <link name="back_pitch_link">
+        <visual>
+            <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.0277"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+
+        <collision>
+            <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.0277"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+            <mass value="0.06"/>
+            <inertia ixx="1.8414959999999996e-05" ixy="0.0" ixz="0.0" iyy="1.8414959999999996e-05" iyz="0.0"
+                     izz="1.8414959999999996e-05"/>
+        </inertial>
+    </link>
+
+    <gazebo reference="back_pitch_link">
+        <kp>1000000000000000000000000000.0</kp>
+        <kd>1000000000000000000000000000.0</kd>
+        <mu1>0.5</mu1>
+        <mu2>0.5</mu2>
+        <material>Gazebo/Black</material>
+    </gazebo>
+
+    <joint name="back_pitch_joint" type="continuous">
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <parent link="back_roll_link"/>
+        <child link="back_pitch_link"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="1000.0" velocity="100.0"/>
+        <dynamics damping="0.0" friction="0.1"/>
+    </joint>
+
+
+    <!-- standoff_rods -->
     <link name="standoff_rods">
         <!-- visual -->
         <visual>
@@ -330,6 +569,12 @@
 
             <joint_name>left_wheel_joint</joint_name>
             <joint_name>right_wheel_joint</joint_name>
+            <joint_name>front_yaw_joint</joint_name>
+            <joint_name>back_yaw_joint</joint_name>
+            <joint_name>front_roll_joint</joint_name>
+            <joint_name>back_roll_joint</joint_name>
+            <joint_name>front_pitch_joint</joint_name>
+            <joint_name>back_pitch_joint</joint_name>
         </plugin>
     </gazebo>
 
