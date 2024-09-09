@@ -14,7 +14,7 @@
                 <geometry>
                     <cylinder length="${wheel_width}" radius="${wheel_radius}"/>
                 </geometry>
-                <material name="red"/>
+                <material name="${rviz_color}"/>
             </visual>
 
             <collision>

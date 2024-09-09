@@ -63,12 +63,13 @@
                 <always_on>true</always_on>
                 <visualize>true</visualize>
                 <update_rate>10.0</update_rate>
-                <plugin name="barista_laser_info" filename="libgazebo_ros_ray_sensor.so">
+                <plugin name="barista_${robot_name}_laser_info" filename="libgazebo_ros_ray_sensor.so">
                     <ros>
-                        <remapping>~/out:=/scan</remapping>
+                        <namespace>/${robot_name}</namespace>
+                        <remapping>~/out:=${robot_name}/scan</remapping>
                     </ros>
                     <output_type>sensor_msgs/LaserScan</output_type>
-                    <frame_name>laser_scan_frame</frame_name>
+                    <frame_name>${robot_name}/laser_scan_frame</frame_name>
                 </plugin>
             </sensor>
         </gazebo>
