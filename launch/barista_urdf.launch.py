@@ -55,19 +55,26 @@ def generate_launch_description():
     spawn_entity = Node(
         package='gazebo_ros',
         executable='spawn_entity.py',
-        arguments=['-entity', 'barista_robot', '-file', urdf],
+        arguments=['-entity', 'barista_robot', '-topic', '/robot_description'],
         output='screen'
     )
 
     robot_desc_path = os.path.join(get_package_share_directory(package_description), "urdf", urdf_file_name)
 
-    robot_state_publisher = Node(
+    robot_state_publisher_node = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
-        name='robot_state_publisher_node',
+        name='robot_state_publisher',
         emulate_tty=True,
         output='screen',
         parameters=[{'use_sim_time': True, 'robot_description': Command(['xacro ', robot_desc_path])}],
+    )
+
+    joint_state_publisher_node = Node(
+        package='joint_state_publisher',
+        executable='joint_state_publisher',
+        name='joint_state_publisher',
+        parameters=[{'use_sim_time': True}]
     )
 
     rviz_config_dir = os.path.join(get_package_share_directory(package_description), 'rviz', 'barista_robot.rviz')
@@ -82,7 +89,8 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
-        robot_state_publisher,
+        robot_state_publisher_node,
+        joint_state_publisher_node,
         rviz,
         gazebo_argument,
         gazebo,
