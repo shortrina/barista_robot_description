@@ -113,7 +113,7 @@ def generate_launch_description():
     entity_name_1 = robot_name_1 + "-" + str(int(random.random() * 100000))
     entity_name_2 = robot_name_2 + "-" + str(int(random.random() * 100000))
 
-    # Spawn the robot in Gazebo
+    # Spawn the robot in Gazebo Morty
     spawn_robot_1 = Node(
         package='gazebo_ros',
         executable='spawn_entity.py',
@@ -121,13 +121,17 @@ def generate_launch_description():
         output='screen',
         arguments=['-entity',
                    entity_name_1,
-                   '-x', '0.0',
-                   '-y', '0.0',
+                   '-x', '1.0',
+                   '-y', '1.0',
                    '-z', '0.0',
+                   '-R', '0.0',
+                   '-P', '0.0',
+                   '-Y', '0.0',
                    '-topic', robot_name_1+'/robot_description'
                    ]
     )
 
+    # Rick
     spawn_robot_2 = Node(
         package='gazebo_ros',
         executable='spawn_entity.py',
@@ -135,9 +139,12 @@ def generate_launch_description():
         output='screen',
         arguments=['-entity',
                    entity_name_2,
-                   '-x', '1.5',
-                   '-y', '1.5',
+                   '-x', '0.0',
+                   '-y', '0.0',
                    '-z', '0.0',
+                   '-R', '0.0',
+                   '-P', '0.0',
+                   '-Y', '0.0',
                    '-topic', robot_name_2+'/robot_description'
                    ]
     )
