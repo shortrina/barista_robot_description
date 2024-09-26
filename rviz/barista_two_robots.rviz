@@ -6,17 +6,12 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
-        - /MortyRobotModel1
         - /MortyRobotModel1/Mass Properties1
         - /MortyRobotModel1/Description Topic1
-        - /LaserScan1
-        - /Odometry1
+        - /TF1
         - /TF1/Frames1
         - /TF1/Tree1
-        - /RickRobotModel1
         - /RickRobotModel1/Description Topic1
-        - /LaserScan2
-        - /Odometry2
       Splitter Ratio: 0.5
     Tree Height: 558
   - Class: rviz_common/Selection
@@ -203,7 +198,7 @@ Visualization Manager:
           Scale: 1
           Value: true
         Value: true
-      Enabled: false
+      Enabled: true
       Keep: 100
       Name: Odometry
       Position Tolerance: 0.10000000149011612
@@ -224,21 +219,125 @@ Visualization Manager:
         History Policy: Keep Last
         Reliability Policy: Best Effort
         Value: morty/odom
-      Value: false
+      Value: true
     - Class: rviz_default_plugins/TF
-      Enabled: false
+      Enabled: true
       Frame Timeout: 15
       Frames:
         All Enabled: true
+        morty/back_pitch_link:
+          Value: true
+        morty/back_roll_link:
+          Value: true
+        morty/back_yaw_link:
+          Value: true
+        morty/base_link:
+          Value: true
+        morty/cup_holder:
+          Value: true
+        morty/front_pitch_link:
+          Value: true
+        morty/front_roll_link:
+          Value: true
+        morty/front_yaw_link:
+          Value: true
+        morty/laser_scan_frame:
+          Value: true
+        morty/laser_scanner_model:
+          Value: true
+        morty/left_wheel:
+          Value: true
+        morty/main_body_link:
+          Value: true
+        morty/odom:
+          Value: true
+        morty/right_wheel:
+          Value: true
+        morty/standoff_rods:
+          Value: true
+        rick/back_pitch_link:
+          Value: true
+        rick/back_roll_link:
+          Value: true
+        rick/back_yaw_link:
+          Value: true
+        rick/base_link:
+          Value: true
+        rick/cup_holder:
+          Value: true
+        rick/front_pitch_link:
+          Value: true
+        rick/front_roll_link:
+          Value: true
+        rick/front_yaw_link:
+          Value: true
+        rick/laser_scan_frame:
+          Value: true
+        rick/laser_scanner_model:
+          Value: true
+        rick/left_wheel:
+          Value: true
+        rick/main_body_link:
+          Value: true
+        rick/odom:
+          Value: true
+        rick/right_wheel:
+          Value: true
+        rick/standoff_rods:
+          Value: true
+        world:
+          Value: true
       Marker Scale: 1
       Name: TF
-      Show Arrows: true
-      Show Axes: true
+      Show Arrows: false
+      Show Axes: false
       Show Names: false
       Tree:
-        {}
+        world:
+          morty/odom:
+            morty/base_link:
+              morty/main_body_link:
+                morty/back_yaw_link:
+                  morty/back_roll_link:
+                    morty/back_pitch_link:
+                      {}
+                morty/front_yaw_link:
+                  morty/front_roll_link:
+                    morty/front_pitch_link:
+                      {}
+                morty/laser_scanner_model:
+                  morty/laser_scan_frame:
+                    {}
+                morty/left_wheel:
+                  {}
+                morty/right_wheel:
+                  {}
+                morty/standoff_rods:
+                  morty/cup_holder:
+                    {}
+          rick/odom:
+            rick/base_link:
+              rick/main_body_link:
+                rick/back_yaw_link:
+                  rick/back_roll_link:
+                    rick/back_pitch_link:
+                      {}
+                rick/front_yaw_link:
+                  rick/front_roll_link:
+                    rick/front_pitch_link:
+                      {}
+                rick/laser_scanner_model:
+                  rick/laser_scan_frame:
+                    {}
+                rick/left_wheel:
+                  {}
+                rick/right_wheel:
+                  {}
+                rick/standoff_rods:
+                  rick/cup_holder:
+                    {}
       Update Interval: 0
-      Value: false
+      Value: true
     - Alpha: 1
       Class: rviz_default_plugins/RobotModel
       Collision Enabled: false
@@ -384,7 +483,7 @@ Visualization Manager:
           Scale: 1
           Value: true
         Value: true
-      Enabled: false
+      Enabled: true
       Keep: 100
       Name: Odometry
       Position Tolerance: 0.10000000149011612
@@ -405,7 +504,7 @@ Visualization Manager:
         History Policy: Keep Last
         Reliability Policy: Reliable
         Value: rick/odom
-      Value: false
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -452,7 +551,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 8.057367324829102
+      Distance: 14.499484062194824
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -467,10 +566,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.4003980755805969
+      Pitch: 0.2053980678319931
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 5.8335862159729
+      Yaw: 6.243586540222168
     Saved: ~
 Window Geometry:
   Displays:
