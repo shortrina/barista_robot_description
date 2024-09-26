@@ -372,7 +372,7 @@
             <xacro:laser_scanner/>
         </xacro:if>
         <gazebo reference="laser_scanner_model">
-            <material>${gazebo_color}</material>
+            <material>Gazebo/Gray</material>
         </gazebo> 
 
     <!-- PLUGINS -->
