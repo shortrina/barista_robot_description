@@ -121,9 +121,12 @@ def generate_launch_description():
         output='screen',
         arguments=['-entity',
                    entity_name_1,
-                   '-x', '1.5',
-                   '-y', '1.5',
+                   '-x', '1.0',
+                   '-y', '1.0',
                    '-z', '0.0',
+                   '-R', '0.0',
+                   '-P', '0.0',
+                   '-Y', '0.0',
                    '-topic', robot_name_1+'/robot_description'
                    ]
     )
@@ -139,6 +142,9 @@ def generate_launch_description():
                    '-x', '0.0',
                    '-y', '0.0',
                    '-z', '0.0',
+                   '-R', '0.0',
+                   '-P', '0.0',
+                   '-Y', '0.0',
                    '-topic', robot_name_2+'/robot_description'
                    ]
     )
